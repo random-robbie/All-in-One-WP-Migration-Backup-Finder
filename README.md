@@ -18,3 +18,7 @@ How to run
 ```
 python3 finder.py -u https://somewordpresswebsite.com
 ```
+
+```
+docker run --rm txt3rob/all-in-one-wp-migration-backup-finder https://www.website.com
+```
