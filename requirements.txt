@@ -2,3 +2,4 @@ requests
 argparse
 urlparse
 wfuzz
+Pycurl
