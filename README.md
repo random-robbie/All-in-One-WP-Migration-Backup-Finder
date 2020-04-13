@@ -9,3 +9,10 @@ It will send around 52k requests so be prepared to get abused by the system admi
 
 
 Needs Wfuzz installed!
+
+How to run
+---
+
+```
+python3 finder.py -u https://somewordpresswebsite.com
+```
