@@ -1,5 +1,5 @@
 requests
 argparse
-urlparse
+urllib3
 wfuzz
-Pycurl
+pycurl
