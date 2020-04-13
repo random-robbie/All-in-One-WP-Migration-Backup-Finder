@@ -2,4 +2,3 @@ requests
 argparse
 urllib3
 wfuzz
-pycurl
