@@ -22,3 +22,4 @@ python3 finder.py -u https://somewordpresswebsite.com
 ```
 docker run --rm txt3rob/all-in-one-wp-migration-backup-finder https://www.website.com
 ```
+![screenshots](https://github.com/random-robbie/All-in-One-WP-Migration-Backup-Finder/raw/master/finder.png)
