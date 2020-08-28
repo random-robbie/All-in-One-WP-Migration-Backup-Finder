@@ -72,8 +72,11 @@ def wayback(domain,headers):
 
 
 
-print(response.status_code)
+
 try:
+	print ("Checking Exposed Backup Dir")
+	lazycheck(url,headers)
+	multicheck(url,headers)
 	if response.status_code == 200:
 		if ".wpress" in response.text:
 			last_modified = response.headers['last-modified']
@@ -84,9 +87,6 @@ try:
 			domain = urlparse(r.url).netloc
 			print ("Checking Wayback Urls")
 			wayback(domain,headers)
-			print ("Checking Exposed Backup Dir")
-			lazycheck(url,headers)
-			multicheck(url,headers)
 			print ("Checking Plugin Version")
 			vercheck (url,headers)
 			print ("[*] Terminate WFuzz if you are not seeing 404 or 200 responses as this means error or rate limited. [*] ")
