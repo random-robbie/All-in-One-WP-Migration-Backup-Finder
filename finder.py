@@ -49,13 +49,13 @@ def lazycheck(url,headers):
 		
 def multicheck(url,headers):
 	domain = urlparse(url).netloc
-	multicheck = session.get(""+url+"/wp-content/ai1wm-backups/"+domain+"", headers=headers,verify=False)
+	multicheck = session.get(""+url+"/wp-content/ai1wm-backups/"+domain+"-", headers=headers,verify=False)
 	if multicheck.status_code == 300:
 		soup = BeautifulSoup(multicheck.text, "html.parser")
-		print ("[*] Following Backups have been found [*] ")
+		print ("[*] Following Backups have been found [*] \n")
 		for link in soup.findAll('a'):
-			print(link.get('href'))
-			sys.exit(0)
+			print(""+url+""+link.get('href')+"")
+		sys.exit(0)
 
 def wayback(domain,headers):
 	wayback = session.get("http://web.archive.org/cdx/search/cdx?url="+url+"*&output=txt&fl=original&collapse=urlkey", headers=headers,verify=False)
