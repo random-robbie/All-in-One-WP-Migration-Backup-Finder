@@ -3,3 +3,4 @@ argparse
 urllib3
 wfuzz
 shodan
+bs4
