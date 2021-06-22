@@ -88,7 +88,7 @@ try:
 			vercheck (url,headers)
 			ffuf_header = "User-Agent: 5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.7113.93 Safari/537.36"
 			try:
-				command = ("ffuf -w ./"+PAYLOAD+" -X HEAD -c -mc 200,300,303 -u "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-FUZZ.wpress -o ffuf.log -t 30 -H "+ffuf_header)
+				command = ("ffuf -w ./"+PAYLOAD+" -X HEAD -c -mc 200,300,303 -u "+r.url+"wp-content/ai1wm-backups/"+domain+"-"+time_ymd+"-FUZZ.wpress -o ffuf.log -t 30 -H '"+ffuf_header+"'")
 				print ("[*] FFUF is using the following command: "+command+" [*]")
 				os.system(command)
 			except KeyboardInterrupt:
