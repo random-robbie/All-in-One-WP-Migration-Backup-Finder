@@ -10,14 +10,23 @@ It will send around 3024000 requests so be prepared to get abused by the system 
 It will not test the non vul versions and it will tell you to check a link if the backups are exposed any way.
 
 
-Needs Wfuzz installed!
+`finder.py` requires `WFUZZ` to be installed and on your path.
+
+`ffufinder.py` requires `ffuf` to be installed and on your path.
 
 How to run
 ---
 
+finder.py:
 ```
-python3 finder.py -u https://somewordpresswebsite.com
+python3 finder.py -u https://somewordpresswebsite.com [-d 10]
 ```
+ffufinder.py:
+```
+python3 ffufinder.py -u https://somewordpresswebsite.com [-d 10]
+```
+
+or
 
 ```
 docker run --rm txt3rob/all-in-one-wp-migration-backup-finder https://www.website.com
