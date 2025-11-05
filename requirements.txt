@@ -1,6 +1,8 @@
-requests
-argparse
-urllib3
-wfuzz
-shodan
-bs4
+# Core dependencies
+requests>=2.31.0,<3.0.0
+beautifulsoup4>=4.12.0,<5.0.0
+urllib3>=2.0.0,<3.0.0
+
+# External tools (optional - install separately if using wfuzz)
+# wfuzz - for finder.py: pip install wfuzz
+# ffuf - for ffufinder.py: https://github.com/ffuf/ffuf
