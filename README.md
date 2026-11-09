@@ -4,7 +4,7 @@ A security research tool for discovering exposed WordPress backup files from the
 
 ## About
 
-This tool identifies exposed backup files created by vulnerable versions of the All-in-One WP Migration WordPress plugin. It's designed for authorized security testing, penetration testing engagements, and educational purposes.
+This tool identifies exposed backup files created by vulnerable versions of the All-in-One WP Migration WordPress plugin. It's designed for authorised security testing, penetration testing engagements, and educational purposes.
 
 **Based on research by [@vavkamil](https://vavkamil.cz/2020/03/25/all-in-one-wp-migration/)**
 
@@ -57,6 +57,14 @@ pip install wfuzz           # For finder.py
 docker build -t wp-backup-finder .
 docker run --rm wp-backup-finder https://example.com
 ```
+
+The image's entrypoint defaults to `python3 finder.py -u`, so the URL is passed directly. To run the ffuf-based scanner instead, override the entrypoint:
+
+```bash
+docker run --rm --entrypoint python3 wp-backup-finder ffufinder.py -u https://example.com
+```
+
+Note that the image installs the Python dependencies from `requirements.txt` only. Neither `wfuzz` nor the `ffuf` binary is bundled, so the corresponding scanning tool must be available for the script you run.
 
 ## Usage
 
@@ -166,17 +174,17 @@ Starting ffuf scan...
 
 ## Ethical Use
 
-**IMPORTANT**: This tool is for authorized security testing only.
+**IMPORTANT**: This tool is for authorised security testing only.
 
-- ✅ Penetration testing with written authorization
+- ✅ Penetration testing with written authorisation
 - ✅ Security research on systems you own
 - ✅ Educational purposes in lab environments
 - ✅ Bug bounty programs with appropriate scope
-- ❌ Unauthorized access to systems you don't own
+- ❌ Unauthorised access to systems you don't own
 - ❌ Malicious purposes
 - ❌ Testing without permission
 
-**Unauthorized access to computer systems is illegal.**
+**Unauthorised access to computer systems is illegal.**
 
 ## Performance Considerations
 
@@ -235,6 +243,10 @@ Contributions are welcome! Please:
 - Tool Development: [@random_robbie](https://twitter.com/random_robbie)
 - Additional contributions from the community
 
+## Author
+
+Robbie Wiggins — [What-Security](https://www.what-security.co.uk) · [GitHub](https://github.com/random-robbie)
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
@@ -266,6 +278,6 @@ This tool is provided "as is" without warranty. Use at your own risk.
 - Basic wfuzz and ffuf support
 - Timestamp-based brute-forcing
 
-## Disclaimer
+## Disclaimer / Authorised use
 
-This tool is provided for educational and authorized security testing purposes only. The authors and contributors are not responsible for misuse or damage caused by this tool. Users are responsible for complying with all applicable laws and regulations.
+This tool is provided for educational and authorised security testing purposes only. The authors and contributors are not responsible for misuse or damage caused by this tool. Users are responsible for complying with all applicable laws and regulations.
